@@ -44,6 +44,45 @@
 python3 scripts/verdict_engine.py
 ```
 
+## 用户入口：跑一下微博茧房判断器
+
+### 方式一：对 Agent 说人话（推荐）
+
+把本仓库克隆到你的 Agent 的 skills 目录，然后直接说：
+
+```
+帮我跑一下微博茧房判断器
+```
+
+以下说法都会触发：**「茧房判断」「茧房检测」「茧房判词」「自诊」「关注列表分析」**。
+
+Agent 会按 SKILL.md 自动走完全流程，你只需要参与两个决策点：
+
+1. **提供 Token**——环境里没有 `WEIBO_CLI_TOKEN` 时，Agent 会停下来找你要（微博开放平台 CLI 套餐获取）
+2. **🔴 拉取不全时的检查点**——如果关注列表没法全量拉回（注销/私密账号导致缺口 >10%），Agent 必须停下来问你：**A 按已拉取的部分直接出报告（标注覆盖率）**，还是 **B 降级重扫、全拉完再跑**。你不选，它不开工
+
+跑完后你会得到一份和纸极简风格的 HTML 报告（手机/电脑自适应）+ 结构化 JSON，落在你指定的目录。
+
+各平台安装位置示例：
+
+| 环境 | 克隆到 |
+|------|--------|
+| Claude Code | 项目 `.claude/skills/` 或全局 skills 目录 |
+| Codex CLI / OpenClaw | 对应 skills 目录（读 SKILL.md 即生效） |
+| Minis | `/var/minis/skills/` |
+
+### 方式二：不用 Agent，手动跑
+
+token 配好后，把流程当三段脚本跑（采集 → 归类 → 出报告）：
+
+```bash
+# 1) 按 references/data-sources.md 的策略拉取关注列表 -> weibo_follows_raw.json
+# 2) 按 references/cocoon-detection.md 做品类归类 -> cocoon_result.json + weibo_follows_classified.json
+# 3) 出报告（内置 9 项自检）
+python3 scripts/generate_report.py --result cocoon_result.json \
+  --classified weibo_follows_classified.json --outdir ./output
+```
+
 ## 快速开始
 
 ### 0. 前置
