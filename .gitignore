@@ -1,0 +1,27 @@
+# ---- 用户数据（绝不入库：含个人关注列表与报告）----
+*.json
+weibo_follows_*
+cocoon_result*
+*茧房检测报告*
+*报告*.html
+output/
+dist/
+
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# ---- 系统与编辑器 ----
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# ---- 本地实验 ----
+design-demos/
+drafts/
