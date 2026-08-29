@@ -1,5 +1,7 @@
 # ---- 用户数据（绝不入库：含个人关注列表与报告）----
+# 唯一例外：test-prompts.json 是 skill 资产（触发场景测试集），非用户数据
 *.json
+!test-prompts.json
 weibo_follows_*
 cocoon_result*
 *茧房检测报告*
