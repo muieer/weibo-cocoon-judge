@@ -91,7 +91,7 @@ python3 scripts/generate_report.py --result cocoon_result.json \
 - 微博开放平台 **CLI 套餐** 的 API Token，写入环境变量：
 
 ```bash
-export WEIBO_CLI_TOKEN="wb_xxxxxxxx"
+export WEIBO_CLI_TOKEN="$(weibo-cli auth token --export)"
 ```
 
 ### 1. 冒烟测试（验证 Token + 额度 + 记录关注总数）
